@@ -12,6 +12,16 @@ require __DIR__ . "/source/autoload.php";
  */
 fullStackPHPClassSession("__set", __LINE__);
 
+$fsphp = new \Source\Interpretation\Product();
+
+$fsphp->handler('Full Stack PHP Developer', 1997);
+
+$fsphp->name = 'FSPHP';
+$fsphp->title = 'FSPHP';
+$fsphp->value = 1997;
+
+var_dump($fsphp);
+
 
 /*
  * [ get ] Executado automaticamente quando se tenta obter uma propriedade inacessível
