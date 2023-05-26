@@ -38,10 +38,19 @@ fullStackPHPClassSession("agregação", __LINE__);
 $fsphp = new \Source\Related\Product("Full Stack PHP", 1997);
 $laradev = new \Source\Related\Product("Laradev", 997);
 
-var_dump(
-    $fsphp,
-    $laradev
-);
+$company->addProduct($fsphp);
+$company->addProduct($laradev);
+
+var_dump($company);
+
+/**
+ * @var \Source\Related\Product $product
+ */
+foreach($company->getProducts() as $product) {
+    echo "<p>{$product->getName()} por R$ {$product->getPrice()}</p>";
+}
+
+
 
 /*
  * [ composição ] Em composição temos um objeto base que é responsável por instanciar o
@@ -49,8 +58,17 @@ var_dump(
  */
 fullStackPHPClassSession("composição", __LINE__);
 
+$company->addTeamMember("CEO", "Nicolas", "Bortoli");
+$company->addTeamMember("Manager", "Gaby", "Sudario");
 
+var_dump($company);
 
+/**
+ * @var \Source\Related\User $member
+ */
+foreach($company->getTeam() as $member) {
+    echo "<p>{$member->getJob()}: {$member->getFirstName()} {$member->getLastName()}</p>";
+}
 
 
 

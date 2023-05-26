@@ -28,8 +28,13 @@ class Company
 
     public function addProduct(Product $product)
     {
-        $this->products[] = $ ;
+        $this->products[] = $product;
     }
+
+    public function addTeamMember($job, $firstName, $lastName)
+    {
+        $this->team[] = new User($job, $firstName, $lastName);
+    } 
 
     public function getCompany()
     {
