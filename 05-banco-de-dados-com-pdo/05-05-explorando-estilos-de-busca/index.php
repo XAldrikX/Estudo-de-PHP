@@ -12,6 +12,7 @@ use Source\Database\Connect;
 fullStackPHPClassSession("fetch", __LINE__);
 
 
+
 /*
  * [ fetch all ] http://php.net/manual/pt_BR/pdostatement.fetchall.php
  */
