@@ -11,7 +11,7 @@ class Connect
     // Conjunto de constantes que irão servir para a conexão com o DB.
     private const HOST = "localhost";
     private const USER = "root";
-    private const DBNAME = "fsphp";
+    private const DBNAME = "fsphp_model";
     private const PASSWD = "";
     private const OPTIONS = [
         // Assegura que ao iniciar a conexão com o DB o charset será utf8.
