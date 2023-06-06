@@ -9,4 +9,18 @@ require __DIR__ . "/../source/autoload.php";
  */
 fullStackPHPClassSession("save update", __LINE__);
 
+$model = new Source\Models\UserModel();
+
+$user = $model->load(2);
+
+$user->first_name = "Kaue";
+
+$user->last_name = "Cardoso";
+
+$user->email = "kaue@upinside.com.br";
+
+$user->save();
+
+var_dump($user);
+
 

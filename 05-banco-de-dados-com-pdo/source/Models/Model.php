@@ -1,10 +1,13 @@
-<?php 
+<?php
 
 namespace Source\Models;
 
 use Source\Database\Connect;
-use stdClass;
 
+/**
+ * Class Model
+ * @package Source\Models
+ */
 abstract class Model
 {
     /** @var object|null */
@@ -17,109 +20,173 @@ abstract class Model
     protected $message;
 
     /**
-     * $name: Este argumento representa o nome da propriedade que está sendo definida. 
-     * Quando você tenta atribuir um valor a uma propriedade que não existe ou é inacessível, 
-     * o argumento $name conterá o nome dessa propriedade.
-     * 
-     * $value: Este argumento representa o valor que você está atribuindo à propriedade 
-     * especificada por $name. Ele contém o valor que você deseja atribuir à propriedade.
+     * @param $name
+     * @param $value
      */
     public function __set($name, $value)
     {
         if (empty($this->data)) {
-            $this->data = new stdClass();
+            $this->data = new \stdClass();
         }
 
         $this->data->$name = $value;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     public function __isset($name)
     {
         return isset($this->data->$name);
     }
 
+    /**
+     * @param $name
+     * @return null
+     */
     public function __get($name)
     {
         return ($this->data->$name ?? null);
     }
 
     /**
-     * Get the value of data
-     */ 
-    public function data() : ?object
+     * @return null|object
+     */
+    public function data(): ?object
     {
         return $this->data;
     }
 
     /**
-     * Get the value of fail
-     */ 
-    public function fail() : ?\PDOException
+     * @return \PDOException
+     */
+    public function fail(): ?\PDOException
     {
         return $this->fail;
     }
 
     /**
-     * Get the value of message
-     */ 
-    public function message() : ?string
+     * @return null|string
+     */
+    public function message(): ?string
     {
         return $this->message;
     }
 
-
-    protected function create()
+    /**
+     * @param string $entity
+     * @param array $data
+     * @return int|null
+     */
+    protected function create(string $entity, array $data): ?int
     {
+        try {
+            $columns = implode(", ", array_keys($data));
+            $values = ":" . implode(", :", array_keys($data));
 
+            $stmt = Connect::getInstance()->prepare("INSERT INTO {$entity} ({$columns}) VALUES ({$values})");
+            $stmt->execute($this->filter($data));
+
+            return Connect::getInstance()->lastInsertId();
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
-    protected function read(string $select, string $params = null) :?\PDOStatement
+    /**
+     * @param string $select
+     * @param string|null $params
+     * @return null|\PDOStatement
+     */
+    protected function read(string $select, string $params = null): ?\PDOStatement
     {
         try {
             $stmt = Connect::getInstance()->prepare($select);
-
             if ($params) {
                 parse_str($params, $params);
-                
-                // Caso não se lembre o que está ocorrendo aqui olhar nota 6 - PDOStatement e bind modes.
                 foreach ($params as $key => $value) {
                     $type = (is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
-                    
                     $stmt->bindValue(":{$key}", $value, $type);
                 }
             }
 
             $stmt->execute();
-
             return $stmt;
-
         } catch (\PDOException $exception) {
             $this->fail = $exception;
-
             return null;
         }
     }
 
-    protected function update()
+    /**
+     * @param string $entity
+     * @param array $data
+     * @param string $terms
+     * @param string $params
+     * @return int|null
+     */
+    protected function update(string $entity, array $data, string $terms, string $params): ?int
     {
-        
+        try {
+            $dateSet = [];
+            foreach ($data as $bind => $value) {
+                $dateSet[] = "{$bind} = :{$bind}";
+            }
+            $dateSet = implode(", ", $dateSet);
+            parse_str($params, $params);
+
+            $stmt = Connect::getInstance()->prepare("UPDATE {$entity} SET {$dateSet} WHERE {$terms}");
+            $stmt->execute($this->filter(array_merge($data, $params)));
+            return ($stmt->rowCount() ?? 1);
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
-    protected function delete()
+    /**
+     * @param string $entity
+     * @param string $terms
+     * @param string $params
+     * @return int|null
+     */
+    protected function delete(string $entity, string $terms, string $params): ?int
     {
-        
+        try {
+            $stmt = Connect::getInstance()->prepare("DELETE FROM {$entity} WHERE {$terms}");
+            parse_str($params, $params);
+            $stmt->execute($params);
+            return ($stmt->rowCount() ?? 1);
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
-
-    protected function safe() : ?array
+    /**
+     * @return array|null
+     */
+    protected function safe(): ?array
     {
-
+        $safe = (array)$this->data;
+        foreach (static::$safe as $unset) {
+            unset($safe[$unset]);
+        }
+        return $safe;
     }
 
-    private function filter() 
+    /**
+     * @param array $data
+     * @return array|null
+     */
+    private function filter(array $data): ?array
     {
-
+        $filter = [];
+        foreach ($data as $key => $value) {
+            $filter[$key] = (is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS));
+        }
+        return $filter;
     }
 }
-
-?>
