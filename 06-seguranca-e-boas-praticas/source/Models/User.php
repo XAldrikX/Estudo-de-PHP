@@ -14,7 +14,7 @@ class User extends Model
     protected static $safe = ["id", "created_at", "updated_at"];
 
     /** @var string $entity database table */
-    protected static $entity = "users";
+    protected static $entity = "fsphp.users";
 
     /**
      * @param string $firstName

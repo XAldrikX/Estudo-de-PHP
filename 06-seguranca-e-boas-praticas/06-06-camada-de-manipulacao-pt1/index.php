@@ -8,3 +8,15 @@ require __DIR__ . "/../source/autoload.php";
  * [ string helpers ] Funções para sintetizar rotinas com strings
  */
 fullStackPHPClassSession("string", __LINE__);
+
+$string = "Essa é uma string, nela temos um under_score e um guarda-chuva!";
+
+echo str_slug($string);
+
+echo "<br>";
+
+echo str_studly_case($string);
+
+echo "<br>";
+
+echo str_camel_case($string);

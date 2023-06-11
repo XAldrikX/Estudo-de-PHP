@@ -16,3 +16,7 @@ $message = new \Source\Core\Message();
 echo $message->info(str_slug($string));
 echo $message->info(str_studly_case($string));
 echo $message->info(str_camel_case($string));
+
+echo $message->info(str_limit_words($string, 8, " [Leia mais]"));
+
+echo $message->info(str_limit_chars($string, 50));
