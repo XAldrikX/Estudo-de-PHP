@@ -21,6 +21,24 @@ function is_passwd(string $password) : bool
     return (mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN ? true : false);
 }
 
+// Essas funções elas vão servir apenas para facilitar na hora de fazer essas verificações, ao invés de termos
+// que digitar essas funções nativas do PHP e mandar os argumentos que vem do Config, podemos apenas
+// invocar essas funções com os argumentos que precisamos verificar.
+function passwd(string $password) : string
+{
+    return password_hash($password, CONF_PASSWD_ALGO, CONF_PASSWD_OPTIONS);
+}
+
+function passwd_verify(string $password, string $hash) : bool
+{
+    return password_verify($password, $hash);
+}
+
+function passwd_rehash(string $hash) : bool
+{
+    return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTIONS);
+}
+
 
 /**
  * ##################

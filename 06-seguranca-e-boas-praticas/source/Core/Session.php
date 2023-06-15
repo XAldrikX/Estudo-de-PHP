@@ -30,7 +30,7 @@ class Session
 
     public function __isset($name) : bool
     {
-        $this->has($name);
+        return $this->has($name);
     }
 
     public function all() : ?object
