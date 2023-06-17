@@ -1,0 +1,28 @@
+{
+    "name": "upinside/fsphp",
+    "description": "Formação Fullstack PHP developer",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Nicolas Alves Bortoli",
+            "email": "nicolasbortoli2010@hotmail.com",
+            "homepage": "https://www.upinside.com.br",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "Source\\": "source/"
+        },
+        "files": [
+            "source/Support/Config.php",
+            "source/Support/Helpers.php"
+        ]
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.8.0"
+    }
+}
