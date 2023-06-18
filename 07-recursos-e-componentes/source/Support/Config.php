@@ -46,7 +46,7 @@ define("CONF_MESSAGE_ERROR", "error");
  * MAIL
  */
 define("CONF_MAIL_HOST", "sandbox.smtp.mailtrap.io");
-define("CONF_MAIL_PORT", "2525");
+define("CONF_MAIL_PORT", 2525);
 define("CONF_MAIL_USER", "13d40519896a58");
 define("CONF_MAIL_PASS", "2894321bf07f5a");
 define("CONF_MAIL_SENDER", ["name" => "Nicolas Bortoli", "address" => "nicolasbortoli2010@hotmail.com"]);

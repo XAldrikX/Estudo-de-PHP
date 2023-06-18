@@ -9,3 +9,18 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 fullStackPHPClassSession("synthesize", __LINE__);
 
+$email = (new \Source\Core\Email())->bootstrap(
+    "Olá mundo, esse é meu e-mail!",
+    "<h1>Olá mundo!</h1><p>Essa é uma mensagem via rotina da aplicação</p>",
+    "nicolasbortoli2010@hotmail.com",
+    "Nicolas Bortoli"
+);
+
+$email->attach(__DIR__ . "/../../../upinside/fsphp/images/cover.jpg", "FSPHP");
+$email->attach(__DIR__ . "/../../../upinside/laradev/images/cover.jpg", "LARADEV");
+
+if ($email->send()) {
+    echo message()->success("E-mail enviado com sucesso!");
+} else {
+    echo $email->message();
+}

@@ -43,11 +43,20 @@ class Email
         // Fazemos isso para poder resetar a propriedade em um objeto que iremos configurar.
         $this->data = new \stdClass();
 
-        $this->data->$subject = $subject;
-        $this->data->$message = $message;
-        $this->data->$toEmail = $toEmail;
-        $this->data->$toName = $toName;
+        $this->data->subject = $subject;
+        $this->data->message = $message;
+        $this->data->toEmail = $toEmail;
+        $this->data->toName = $toName;
 
+        return $this;
+    }
+
+    // Função responsavel por setar anexos ao e-mail que iremos enviar.
+    public function attach(string $filePath, string $fileName) : Email
+    {
+        $this->data->attach[$filePath] = $fileName;
+
+        return $this;
     }
 
     // Aqui vamos fazer o envio e a validação necessaria.
@@ -55,7 +64,7 @@ class Email
     public function send($fromEmail = CONF_MAIL_SENDER['address'], $fromName = CONF_MAIL_SENDER['name']) : bool
     {
         // Caso o método bootstrap não tenha sido rodado ainda. 
-        if (!empty($this->data)) {
+        if (empty($this->data)) {
             $this->message->error("Erro ao enviar, favor verique os seus dados");
             
             return false;
@@ -74,14 +83,26 @@ class Email
         }
 
         try {
-            $this->mail->Subject = $this
+            $this->mail->Subject = $this->data->Subject;
+            $this->mail->msgHTML($this->data->message);
+            $this->mail->addAddress($this->data->toEmail, $this->data->toName);
+            $this->mail->setFrom($fromEmail, $fromName);
+
+            if (!empty($this->data->attach)) {
+                foreach($this->data->attach as $path => $name) {
+                    $this->mail->addAttachment($path, $name);
+                }
+            }
+            
+            $this->mail->send();
+
+            return true;
+
         } catch (Exception $exception) {
             $this->message->error($exception->getMessage());
 
             return false;
         }
-
-
     }
 
     // Vamos precisar de uma forma de acessar o PHPMailer e utilizar seus métodos, essa função 
