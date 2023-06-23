@@ -43,6 +43,21 @@ define("CONF_MESSAGE_WARNING", "warning");
 define("CONF_MESSAGE_ERROR", "error");
 
 /**
+ * UPLOAD
+ */
+define("CONF_UPLOAD_DIR", "../storage/uploads");
+define("CONF_UPLOAD_IMAGE_DIR", "images");
+define("CONF_UPLOAD_FILE_DIR", "files");
+define("CONF_UPLOAD_MEDIA_DIR", "medias");
+
+/**
+ * IMAGES
+ */
+define("CONF_IMAGES_CACHE", CONF_UPLOAD_DIR . "/" . CONF_UPLOAD_IMAGE_DIR . "/cache");
+define("CONF_IMAGES_SIZE", 2000);
+define("CONF_IMAGES_QUALITY", ["jpg" => 75, "png" => 5]);
+
+/**
  * MAIL
  */
 define("CONF_MAIL_HOST", "sandbox.smtp.mailtrap.io");
