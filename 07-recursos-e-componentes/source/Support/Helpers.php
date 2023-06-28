@@ -204,9 +204,9 @@ function redirect(string $url): void
 
 
 /**
- * ################
- * ###   DATE   ###
- * ################
+ * ###############
+ * ###   URL   ###
+ * ###############
  */
 
 /**
@@ -214,27 +214,25 @@ function redirect(string $url): void
  * @param string $format
  * @return string
  */
-function date_fmt(string $date = "now", string $format = "d/m/Y H\hi") : string
+function date_fmt(string $date = "now", string $format = "d/m/Y H\hi"): string
 {
     return (new DateTime($date))->format($format);
 }
 
-
 /**
  * @param string $date
  * @return string
  */
-function date_fmt_br(string $date = "now") : string
+function date_fmt_br(string $date = "now"): string
 {
     return (new DateTime($date))->format(CONF_DATE_BR);
 }
 
-
 /**
  * @param string $date
  * @return string
  */
-function date_fmt_app(string $date = "now") : string
+function date_fmt_app(string $date = "now"): string
 {
     return (new DateTime($date))->format(CONF_DATE_APP);
 }
@@ -254,11 +252,11 @@ function db(): PDO
 }
 
 /**
- * @return \Source\Core\Message
+ * @return \Source\Support\Message
  */
-function message(): \Source\Core\Message
+function message(): \Source\Support\Message
 {
-    return new \Source\Core\Message();
+    return new \Source\Support\Message();
 }
 
 /**

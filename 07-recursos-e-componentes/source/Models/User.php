@@ -5,7 +5,8 @@ namespace Source\Models;
 use Source\Core\Model;
 
 /**
- * Class UserModel Active Record Pattern
+ * FSPHP | Class UserModel Active Record Pattern
+ *
  * @author Robson V. Leite <cursos@upinside.com.br>
  * @package Source\Models
  */

@@ -13,7 +13,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as MailException;
 
 $phpMailer = new PHPMailer();
-
 var_dump($phpMailer instanceof PHPMailer);
 
 
@@ -23,34 +22,35 @@ var_dump($phpMailer instanceof PHPMailer);
 fullStackPHPClassSession("configure", __LINE__);
 
 try {
-    // Parametro true serve para habilitar as exceções.
     $mail = new PHPMailer(true);
 
-    // CONFIG
+    //CONFIG
     $mail->isSMTP();
-    $mail->setLanguage('br');
+    $mail->setLanguage("br");
     $mail->isHTML(true);
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = 'tls';
     $mail->CharSet = 'utf-8';
 
-    // AUTH
-    $mail->Host = 'sandbox.smtp.mailtrap.io';
-    $mail->Username = '13d40519896a58';
-    $mail->Password = '2894321bf07f5a';
-    $mail->Port = 2525;
+    //AUTH
+    $mail->Host = "smtp.sendgrid.net";
+    $mail->Username = "apikey";
+    $mail->Password = "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";
+    $mail->Port = "587";
 
-    // MAIL
-    $mail->setFrom('nicolasbortoli2010@hotmail.com', 'Nicolas Bortoli');
-    $mail->Subject = 'Este é meu envio via componente FSPHP';
-    $mail->msgHTML('<h1>Olá mundo</h1><p>Esse é o meu primeiro disparo de e-mail.</p>');
+    //MAIL
+    $mail->setFrom("cursos@upinside.com.br", "Robson V. Leite");
+    $mail->Subject = "Este é meu envio via componente no FSPHP";
+    $mail->msgHTML("<h1>Olá mundo!</h1><p>Esse é meu primeiro disparo de e-mail.</p>");
 
-    // SEND
-    $mail->addAddress('nicolasbortoli2010@hotmail.com', 'Nicolas Bortoli');
+    //SEND
+    $mail->addAddress("robsonvleite@gmail.com", "Robson Leite");
     $send = $mail->send();
 
     var_dump($send);
-
 } catch (MailException $exception) {
-    var_dump($exception->getMessage());
+    echo message()->error($exception->getMessage());
 }
+
+
+

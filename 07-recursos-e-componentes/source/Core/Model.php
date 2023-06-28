@@ -2,8 +2,11 @@
 
 namespace Source\Core;
 
+use Source\Support\Message;
+
 /**
- * Class Model Layer Supertype Pattern
+ * FSPHP | Class Model Layer Supertype Pattern
+ *
  * @author Robson V. Leite <cursos@upinside.com.br>
  * @package Source\Models
  */

@@ -9,22 +9,22 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 fullStackPHPClassSession("cropper", __LINE__);
 
+$t = new \Source\Support\Thumb();
+var_dump($t);
+
 
 /*
  * [ generate ]
  */
 fullStackPHPClassSession("generate", __LINE__);
 
-$thumb = new Source\Support\Thumb();
+echo "<img src='{$t->make("images/2018/09/imagem.jpg", 300)}' alt='' title=''/>";
+echo "<img src='{$t->make("images/2018/09/imagem.jpg", 180, 180)}' alt='' title=''/>";
 
-echo "<img src='{$thumb->make("images/2018/09/imagem.jpg", 300)}'/>";
-echo "<img src='{$thumb->make("images/2018/09/imagem.jpg", 180, 180)}'/>";
+var_dump($t->make("image.jpg", 100));
 
-// Exemplo de imagem que não existe para forçar um erro.
-var_dump($thumb->make("image.jpg", 100));
+echo "<img src='{$t->make("images/2018/09/imagem.png", 300)}' alt='' title=''/>";
+echo "<img src='{$t->make("images/2018/09/imagem.png", 180, 180)}' alt='' title=''/>";
 
-echo "<img src='{$thumb->make("images/2018/09/imagem.png", 300)}'/>";
-echo "<img src='{$thumb->make("images/2018/09/imagem.png", 180, 180)}'/>";
-
-// Libera o cache das images.
-$thumb->flush("images/2018/09/imagem.jpg");
+//$t->flush("images/2018/09/imagem.png");
+//$t->flush();

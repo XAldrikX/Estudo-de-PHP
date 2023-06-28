@@ -35,6 +35,7 @@ class ComposerStaticInit5a2068d29270d801ad5e84b8f9d636ee
         'C' => 
         array (
             'CoffeeCode\\Uploader\\' => 20,
+            'CoffeeCode\\Paginator\\' => 21,
             'CoffeeCode\\Cropper\\' => 19,
         ),
     );
@@ -63,6 +64,10 @@ class ComposerStaticInit5a2068d29270d801ad5e84b8f9d636ee
         'CoffeeCode\\Uploader\\' => 
         array (
             0 => __DIR__ . '/..' . '/coffeecode/uploader/src',
+        ),
+        'CoffeeCode\\Paginator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/coffeecode/paginator/src',
         ),
         'CoffeeCode\\Cropper\\' => 
         array (

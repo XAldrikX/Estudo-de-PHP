@@ -12,8 +12,8 @@ fullStackPHPClassSession("synthesize", __LINE__);
 $email = (new \Source\Core\Email())->bootstrap(
     "Olá mundo, esse é meu e-mail!",
     "<h1>Olá mundo!</h1><p>Essa é uma mensagem via rotina da aplicação</p>",
-    "nicolasbortoli2010@hotmail.com",
-    "Nicolas Bortoli"
+    "robsonvleite@gmail.com",
+    "Robson Leite"
 );
 
 $email->attach(__DIR__ . "/../../../upinside/fsphp/images/cover.jpg", "FSPHP");

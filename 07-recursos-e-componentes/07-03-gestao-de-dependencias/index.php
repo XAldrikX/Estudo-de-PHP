@@ -9,8 +9,10 @@ fullStackPHPClassSession("get composer", __LINE__);
 
 require __DIR__ . "/../vendor/autoload.php";
 
-var_dump(get_defined_constants(true)["user"]);
+var_dump(get_defined_constants(true)['user']);
 
 $user = user()->findById(1);
+var_dump($user);
 
+$user = (new \Source\Models\User())->findById(2);
 var_dump($user);
